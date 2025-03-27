@@ -1,0 +1,21 @@
+{
+    "name": "RWmodCode",
+    "version": "0.0.1",
+    "engines": {
+        "vscode": ">=0.9.0-pre.1"
+    },
+    "repository":""
+    "publisher": "HITHELL",
+    "contributes": {
+        "languages": [{
+            "id": "rwmodcode",
+            "aliases": ["rwmodcode", "RW"],
+            "extensions": [".rwmodcode",".RWmod",".ini"]
+        }],
+        "grammars": [{
+            "language": "rwmodcode",
+            "scopeName": "source.rwmodcode",
+            "path": "./syntaxes/rwmodcode.tmLanguage.json"
+        }]
+    }
+}

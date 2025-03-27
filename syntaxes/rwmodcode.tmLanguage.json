@@ -1,0 +1,38 @@
+{
+  "scopeName": "source.rwmodcode",
+  "patterns": [
+    {
+      "match": "\\b(name|altname|class|price|mass|techLevel|buildSpeed|radius|isBio|isBug|isBuilder|maxHp|selfRegenRate|maxShield|startShieldAtZero|shieldRegen|energyStartingPercentage|energyNeedsToRechargeToFull|armor|armourMinDamageToKeep|borrowResourcesWhileAlive|generation_resources|generation_active|generation_credits|generation_delay)\\b",
+      "name": "keyword.control.rwmodcode"
+    },
+    {
+      "match": "\\b\\d+\\b",
+      "name": "constant.numeric.rwmodcode"
+    },
+    {
+      "match": "\\b(int|string|float|bool)\\b",
+      "name": "constant.data.rwmodcode"
+    },
+    {
+      "match": "\\${[^}]+}",
+      "name": "constant.vars.rwmodcode"
+    },
+    {
+      "match": "#.*$",
+      "name": "constant.comment.rwmodcode"
+    },
+    {
+      "match": "\\b[a-zA-Z_]\\w*\\b",
+      "name": "constant.var.rwmodcode"
+    },
+    {
+      "match": "\\\\n",
+      "name": "constant.n.rwmodcode"
+    },
+    {
+      "match": "\\[[^\\]]+\\]",
+      "name": "constant.array.rwmodcode"
+    }
+  ],
+  "repository": {}
+}
