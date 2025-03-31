@@ -2,8 +2,32 @@
   "scopeName": "source.rwmodcode",
   "patterns": [
     {
-      "match": "\\b(name|altname|class|price|mass|techLevel|buildSpeed|radius|isBio|isBug|isBuilder|maxHp|selfRegenRate|maxShield|startShieldAtZero|shieldRegen|energyStartingPercentage|energyNeedsToRechargeToFull|armor|armourMinDamageToKeep|borrowResourcesWhileAlive|generation_resources|generation_active|generation_credits|generation_delay)\\b",
-      "name": "keyword.control.rwmodcode"
+      "match": "\\b(name|altname|class|generation_credits|transportUnitsBlockAirAndWaterUnits|transportUnitsRequireMovementType|transportUnitsRequireTag|maxTransportingUnits|transportSlotsNeeded|startShieldAtZero|MaxShield|price|mass|techLevel|buildSpeed|radius|isBio|isBug|isBuilder|maxHp|selfRegenRate|maxShield|startShieldAtZero|shieldRegen|energyStartingPercentage|energyNeedsToRechargeToFull|armor|armourMinDamageToKeep|borrowResourcesWhileAlive|generation_resources|generation_active|generation_credits|generation_delay|displayText|displayDescription|ShowInEditor|MaxShield|experemental|ShieldRegen|image|image_turret|dust_effect|image_shadow|canAttackNotTouchingWaterUnits|turretMultiTargeting|canAttackLandUnits|canAttackUnderwaterUnits|turretSize|maxAttackRange)\\b",
+      "name": "keyword.command.rwmodcode"
+    },
+    {
+      "match": "(\\\\\\[core\\\\\\]|\\\\\\[graphics\\\\\\]|\\\\\\[attack\\\\\\]|\\\\\\[turret_?.\\\\\\]|\\\\\\[projectile_?.\\\\\\]|\\\\\\[movement\\\\\\]|\\\\\\[ai\\\\\\]|\\\\\\[effect_flame\\\\\\]|\\\\\\[comment_action_reload\\\\\\])",
+      "name": "keyword.title.rwmodcode"
+    },
+    {
+      "match": "\\b(projectile|delay|warmup|recoilOffset|recoilOutTime|canShoot|canAttackLandUnits|canAttackNotTouchingWaterUnits|canAttackFlyingUnits|laserDefenceEnergyUse|targetGroundlife|directDamage|deflectionPower)\\b",
+      "name": "keyword.titleturel.rwmodcode"
+    },
+    {
+      "match": "\\b(moveWarmUp|rotateSpeed|image_foot|image_leg|holdDisMin|holdDisMax|heightSpeed)\\b",
+      "name": "keyword.titleleg.rwmodcode"
+    },
+    {
+      "match": "\\b(movementType|moveSpeed|maxTurnSpeed)\\b",
+      "name": "keyword.titlemove.rwmodcode"
+    },
+    {
+      "match": "\\b(LAND|AIR|HOVER|WATER|OVER_CLIFF_WATER)\\b",
+      "name": "keyword.unitpype.rwmodcode"
+    },
+    {
+      "match": "\\b(x|y|attach_x|attach_y)\\b",
+      "name": "keyword.coordinate.rwmodcode"
     },
     {
       "match": "\\b\\d+\\b",
@@ -11,27 +35,27 @@
     },
     {
       "match": "\\b(int|string|float|bool)\\b",
-      "name": "constant.data.rwmodcode"
+      "name": "storage.type.rwmodcode"
     },
     {
       "match": "\\${[^}]+}",
-      "name": "constant.vars.rwmodcode"
+      "name": "variable.interpolation.rwmodcode"
     },
     {
       "match": "#.*$",
-      "name": "constant.comment.rwmodcode"
+      "name": "comment.line.rwmodcode"
     },
     {
       "match": "\\b[a-zA-Z_]\\w*\\b",
-      "name": "constant.var.rwmodcode"
+      "name": "variable.other.rwmodcode"
     },
     {
       "match": "\\\\n",
-      "name": "constant.n.rwmodcode"
+      "name": "constant.character.escape.rwmodcode"
     },
     {
       "match": "\\[[^\\]]+\\]",
-      "name": "constant.array.rwmodcode"
+      "name": "meta.brackets.rwmodcode"
     }
   ],
   "repository": {}

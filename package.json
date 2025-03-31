@@ -1,21 +1,40 @@
 {
-    "name": "RWmodCode",
-    "version": "0.0.1",
-    "engines": {
-        "vscode": ">=0.9.0-pre.1"
-    },
-    "repository":""
+    "name": "rwmodcode",
+    "version": "0.0.9",
+    "main": "./extension.js",
+    "icon":"icon_window128.png",
     "publisher": "HITHELL",
     "contributes": {
-        "languages": [{
-            "id": "rwmodcode",
-            "aliases": ["rwmodcode", "RW"],
-            "extensions": [".rwmodcode",".RWmod",".ini"]
-        }],
-        "grammars": [{
-            "language": "rwmodcode",
-            "scopeName": "source.rwmodcode",
-            "path": "./syntaxes/rwmodcode.tmLanguage.json"
-        }]
+        "languages": [
+            {
+                "id": "rwmodcode",
+                "aliases": [
+                    "RWModCode",
+                    "RWC"
+                ],
+                "configuration": "./language-configuration.json",
+                "extensions": [
+                    ".rwmodcode",".ini"
+                ]
+            }
+        ],
+        "grammars": [
+            {
+                "language": "rwmodcode",
+                "scopeName": "source.rwmodcode",
+                "path": "./syntaxes/rwmodcode.tmLanguage.json"
+            }
+        ]
+    },
+    "activationEvents": [
+        "onLanguage:rwmodcode"
+    ],
+    "engines": {
+        "vscode": "^1.75.0"
+    },
+    "dependencies": {
+        "vscode-languageclient": "8.1.0",
+        "vscode-languageserver": "^8.1.0",
+        "vscode-languageserver-textdocument": "^1.0.8"
     }
 }
