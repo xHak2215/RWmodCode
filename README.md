@@ -1,4 +1,4 @@
-#ru
+ru
 # RWModCode VS Code
 
 
@@ -31,7 +31,7 @@ RWModCode - это плагин для упрошения разработки �
 
 ## Ссылки
 - [Github](https://github.com/xHak2215/RWmodCode)
-#en
+en
 # RWModCode VS Code  
 
 RWModCode is a plugin designed to simplify mod development for Rusted Warfare.  
