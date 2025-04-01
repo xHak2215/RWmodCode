@@ -2,7 +2,7 @@
     "name": "rwmodcode",
     "version": "0.0.9",
     "main": "./extension.js",
-    "icon":"icon_window128.png",
+    "icon":"images/icon_window128.png",
     "publisher": "HITHELL",
     "contributes": {
         "languages": [
