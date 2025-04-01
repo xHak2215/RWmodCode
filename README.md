@@ -30,7 +30,7 @@ RWModCode - это плагин для упрошения разработки �
 ```
 
 ## Ссылки
-- [Github](https://github.com/xHak2215/RWmodCode)
+- [Github](https://github.com/xHak2215/RWmodCode)<br>
 en
 # RWModCode VS Code  
 
