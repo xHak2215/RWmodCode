@@ -1,13 +1,13 @@
 {
     "name": "rwmodcode",
     "version": "0.1.3",
-    "main": "./extension.ts",
+    "main": "/extension.js",
     "icon":"images/icon_window128.png",
     "publisher": "HITHELL",
     "rwmodcode.enableLinting": true,
     "repository": {
-    "type": "git",
-    "url": "https://github.com/xHak2215/RWmodCode.git" 
+        "type": "git",
+        "url": "https://github.com/xHak2215/RWmodCode.git" 
     },
     "contributes": {
         
@@ -56,6 +56,10 @@
     },
     "Validation": {
      "rules":"./syntaxes/rwmodvalidator.json"   
+    },
+    "scripts": {
+        "build": "tsc"
     }
+
           
 }
