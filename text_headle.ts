@@ -1,33 +1,32 @@
 import * as vscode from 'vscode';
-const command_list: string[] = require('./server/command_list.js'); 
+const command_list: string[] = require('./syntaxes/command_list.js'); 
 
-export function activate(context: vscode.ExtensionContext) {
-    const disposable = vscode.languages.registerDocumentSemanticTokensProvider(
-        { language: 'rwmodcode' }, 
-        new MySemanticTokensProvider(),
-        legend
-    );
-
-    context.subscriptions.push(disposable);
-}
-
-class MySemanticTokensProvider implements vscode.DocumentSemanticTokensProvider {
+export class MySemanticTokensProvider implements vscode.DocumentSemanticTokensProvider {
     provideDocumentSemanticTokens(document: vscode.TextDocument): vscode.ProviderResult<vscode.SemanticTokens> {
         const tokensBuilder = new vscode.SemanticTokensBuilder();
         const text = document.getText();
         const lines = text.split(/\r?\n/);
-
+        console.info(lines+' оброботка текста')
         lines.forEach((line, lineIndex) => {
             command_list.forEach(keyword => {
                 const index = line.indexOf(keyword);
                 if (index !== -1) {
-                    const startIndex = index + keyword.length + 1; 
-                    const endIndex = line.length;
+                    // Найдите позицию двоеточия
+                    const colonIndex = line.indexOf(':', index);
+                    if (colonIndex !== -1) {
+                        // Подсвечиваем текст после двоеточия
+                        const startIndex = colonIndex + 1; // Начинаем с символа после двоеточия
+                        const endIndex = line.length; // Конец строки
 
-                    tokensBuilder.push(
-                        new vscode.Range(lineIndex, startIndex, lineIndex, endIndex),
-                        'text' 
-                    );
+                        // Удаляем пробелы в начале текста после двоеточия
+                        const trimmedText = line.substring(startIndex).trim();
+                        const trimmedStartIndex = startIndex + (line.substring(startIndex).indexOf(trimmedText));
+
+                        tokensBuilder.push(
+                            new vscode.Range(lineIndex, trimmedStartIndex, lineIndex, endIndex),
+                            'text' 
+                        );
+                    }
                 }
             });
         });
@@ -36,4 +35,4 @@ class MySemanticTokensProvider implements vscode.DocumentSemanticTokensProvider 
     }
 }
 
-const legend = new vscode.SemanticTokensLegend(['text']);
+export const legend = new vscode.SemanticTokensLegend(['text']);
