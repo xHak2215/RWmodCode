@@ -1,8 +1,9 @@
 import * as vscode from 'vscode';
 import { LanguageClient, TransportKind } from 'vscode-languageclient/node';
-import { MySemanticTokensProvider, legend } from './text_headle'; 
+import { MySemanticTokensProvider, legend } from '/text_headle'; 
 
-export function activate(context: vscode.ExtensionContext) {
+export function activate(context) {
+    console.log("запуск проверка");
     const serverModule = context.asAbsolutePath('server/server.js');
     const clientOptions = {
         documentSelector: [{ scheme: 'file', language: 'rwmodcode' }],
