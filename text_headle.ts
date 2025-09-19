@@ -1,5 +1,5 @@
 import * as vscode from 'vscode';
-const command_list: string[] = require('./command_list.js'); 
+const command_list: string[] = require('./server/command_list.js'); 
 
 export function activate(context: vscode.ExtensionContext) {
     const disposable = vscode.languages.registerDocumentSemanticTokensProvider(
