@@ -1,17 +1,19 @@
 const vscode = require('vscode');
 const { LanguageClient, TransportKind } = require('vscode-languageclient/node');
+const { activate } = require('./text_headle'); 
 
 function activate(context) {
     const serverModule = context.asAbsolutePath('server/server.js');
-    
+    const clientOptions = {
+        documentSelector: [{ scheme: 'file', language: 'rwmodcode' }],
+        diagnosticCollectionName: 'rwmodcode'
+    };
+
     const serverOptions = {
         run: { 
             module: serverModule,
             transport: TransportKind.ipc,
-            options: { cwd: context.extensionPath },
-            completionProvider: {
-                resolveProvider: true // Теперь сервер поддерживает разрешение
-            }
+            options: { cwd: context.extensionPath }
         },
         debug: {
             module: serverModule,
@@ -22,6 +24,7 @@ function activate(context) {
             }
         }
     };
+
     const client = new LanguageClient(
         'rwmodcodeLanguageServer',
         'RWModCode Language Server',
@@ -32,7 +35,7 @@ function activate(context) {
         }
     );
 
-    client.start();
+    context.subscriptions.push(client.start());
 }
 
 module.exports = { activate };
