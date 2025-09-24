@@ -15,6 +15,7 @@ export function activate(context) {
         new MySemanticTokensProvider(),
         legend
     );
+    
 
     context.subscriptions.push(disposable);
 
