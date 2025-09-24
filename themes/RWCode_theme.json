@@ -1,41 +1,48 @@
 {
-    "name": "RWmodCodeThemes",
-    "tokenColors": [
-      {
-        "scope": "keyword.command.rwmodcode",
-        "settings": { "foreground": "#B8860B" }
-      },
-      {
-        "scope": "keyword.title.rwmodcode",
-        "settings": { "foreground": "#800080" }
-      },
-      {
-        "scope": "keyword.titleturel.rwmodcode",
-        "settings": { "foreground": "#186b26" }
-      },
-      {
-        "scope": "keyword.titlemove.rwmodcode",
-        "settings": { "foreground": "#143859" }
-      },
-      {
-        "scope": "constant.numeric.rwmodcode",
-        "settings": { "foreground": "#196aaf" }
-      },
-      {
-        "scope": "keyword.unitpype.rwmodcode",
-        "settings": { "foreground": "#19af5f" }
-      },
-      {
-        "scope": "storage.type.rwmodcode",
-        "settings": { "foreground": "#2b86a6" }
-      },
-      {
-        "scope": "comment.line.rwmodcode",
-        "settings": { "foreground": "#9d650e" }
-      },
-      {
-        "scope": "constant.character.escape.rwmodcode",
-        "settings": { "foreground": "#967019" }
-      }
-    ]
-  }
+  "name": "RW Theme",
+  "type": "dark",
+  "colors": {},
+  "tokenColors": [
+    {
+      "scope": "keyword.command.rwmodcode",
+      "settings": { "foreground": "#c678dd", "fontStyle": "bold" }
+    },
+    {
+      "scope": "variable.other.rwmodcode",
+      "settings": { "foreground": "#B3B3B3" }
+    },
+    {
+      "scope": "constant.numeric.rwmodcode",
+      "settings": { "foreground": "#d19a66" }
+    },
+    {
+      "scope": "comment.line.rwmodcode",
+      "settings": { "foreground": "#397a55", "fontStyle": "italic" }
+    },
+    {
+      "scope": "keyword.logic.rwmodcode",
+      "settings": { "foreground": "#398cd6", "fontStyle": "italic" }
+    },
+    {
+      "scope": "keyword.text.rwmodcode",
+      "settings": { "foreground": "#c3622c", "fontStyle": "italic" }
+    },
+    {
+      "scope": "keyword.segment.rwmodcode",
+      "settings": { "foreground": "#5EE1FF", "fontStyle": "bold" }
+    },
+    {
+      "scope": "keyword.unitpype.rwmodcode",
+      "settings": { "foreground": "#BFA33D" }
+    },
+    {
+      "scope": "constant.character.escape.rwmodcode",
+      "settings": { "foreground": "#d7ab4f" }
+    },
+    {
+      "scope": "constant.character.rwmodcode",
+      "settings": { "foreground": "#93cea8" }
+    }
+  ]
+}
+
