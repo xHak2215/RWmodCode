@@ -1,65 +1,57 @@
 {
-    "name": "rwmodcode",
-    "version": "0.1.3",
-    "main": "/extension.js",
-    "icon":"images/icon_window128.png",
-    "publisher": "HITHELL",
-    "rwmodcode.enableLinting": true,
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/xHak2215/RWmodCode.git" 
-    },
-    "contributes": {
-        
-        "languages": [
-            {
-                "id": "rwmodcode",
-                "aliases": [
-                    "RWModCode",
-                    "RWC"
-                ],
-                "configuration": "./language-configuration.json",
-                "properties": {
-                "rwmodcode.validation.enabled": {
-                "type": "boolean",
-                "default": true,
-                "description": "Включить валидацию команд"
-            }
-            },
-                "extensions": [
-                    ".rwmodcode",".ini",".template"
-                ]
-            }
-        ],
-        "grammars": [
-            {
-                "language": "rwmodcode",
-                "scopeName": "source.rwmodcode",
-                "path": "./syntaxes/rwmodcode.tmLanguage.json"
-            }
-        ]
-    },
-    "engines": {
-        "vscode": "^1.75.0"
-    },
-    "devDependencies": {
-    "vscode": "^1.60.0", 
+  "name": "rwmodcode",
+  "version": "0.1.4",
+  "main": "/extension.js",
+  "icon": "images/icon_window128.png",
+  "publisher": "HITHELL",
+  "rwmodcode.enableLinting": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/xHak2215/RWmodCode.git"
+  },
+  "contributes": {
+    "languages": [
+      {
+        "id": "rwmodcode",
+        "aliases": ["RWModCode", "RWC"],
+        "configuration": "./language-configuration.json",
+        "extensions": [".rwmodcode", ".ini", ".template"]
+      }
+    ],
+    "grammars": [
+      {
+        "language": "rwmodcode",
+        "scopeName": "source.rwmodcode",
+        "path": "./syntaxes/rwmodcode.tmLanguage.json"
+      }
+    ],
+    "themes": [
+      {
+        "label": "rw_mode_theme",
+        "uiTheme": "vs-dark",
+        "path": "./themes/RWCode_theme.json"
+      }
+    ]
+  },
+  "engines": {
+    "vscode": "^1.75.0"
+  },
+  "devDependencies": {
+    "vscode": "^1.60.0",
     "typescript": "^5.0.0",
     "@types/vscode": "^1.x.x",
-    "node":"^24.8.0"
-    },
-    "dependencies": {
-        "vscode-languageclient": "8.1.0",
-        "vscode-languageserver": "^8.1.0",
-        "vscode-languageserver-textdocument": "^1.0.8",
-        "typescript": "^5.x.x"
-    },
-    "Validation": {
-     "rules":"./syntaxes/rwmodvalidator.json"   
-    },
-    "scripts": {
-        "build": "tsc"
-    }
-
-          
+    "node": "^24.8.0"
+  },
+  "dependencies": {
+    "vscode-languageclient": "8.1.0",
+    "vscode-languageserver": "^8.1.0",
+    "vscode-languageserver-textdocument": "^1.0.8",
+    "typescript": "^5.x.x"
+  },
+  "Validation": {
+    "rules": "./syntaxes/rwmodvalidator.json"
+  },
+  "scripts": {
+    "build": "tsc"
+  }
 }
