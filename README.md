@@ -20,8 +20,9 @@
 ## Установка
 
 1. Откройте Extensions (Ctrl+Shift+X)
-2. Найдите "RWModCode"
-3. Нажмите Install
+2. Найдите `RWModCode`
+3. Нажмите 'Install'
+4. за тем нажмите 'задать цветовую тему' после `rw_mode_theme`
 
 ## Настройки
 
@@ -32,4 +33,5 @@
 
 ## Ссылки
 - [Github](https://github.com/xHak2215/RWmodCode)
+
 
