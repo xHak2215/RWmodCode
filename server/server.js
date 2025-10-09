@@ -1,11 +1,10 @@
-const { createConnection, ProposedFeatures, CompletionItemKind } = require('vscode-languageserver/node');
-const { TextDocuments, TextDocument } = require('vscode-languageserver-textdocument');
-import { command_list } from "./syntaxes/command_list.js" //список с командами
-
+const { createConnection, CompletionItemKind, TextDocuments } = require('vscode-languageserver');
+const { TextDocument } = require('vscode-languageserver-textdocument');
+const { command_list } = require('./command_list.js');
 
 const connection = createConnection(); 
-const documents = new TextDocuments(TextDocument);
 
+const documents = new TextDocuments(TextDocument);
 
 const VALIDATION_CONFIG = {
     allowedCommands: command_list,
@@ -240,7 +239,9 @@ const COMPLETION_ITEMS = {
     'moveSlidingDir': { detail: '  ', docs: ' ' },
     'slowDeathFall': { detail: '  ', docs: ' ' },
     'fadeInTime': { detail: '  ', docs: ' ' },
-    'hSpeedRandom': { detail: '  ', docs: ' ' }
+    'hSpeedRandom': { detail: '  ', docs: ' ' },
+    'if' : { detail: '  ', docs: ' ' },
+    'self' : { detail: '  ', docs: ' ' }
     
 }
 connection.onInitialize(() => {
@@ -261,60 +262,88 @@ connection.onInitialize(() => {
     };
 });
 
-documents.onDidChangeContent((event) => {
-    try {//зашита от подений сервера 
-        function validateDocument(textDocument) {
-            const text = textDocument.getText();
-            const diagnostics = [];
-        
-            const lines = text.split('\n');
-            for (let lineNumber = 0; lineNumber < lines.length; lineNumber++) {
-                const line = lines[lineNumber];
-                const match = line.match(VALIDATION_CONFIG.commandPattern);
-                
-                if (match) {
-                    const command = match[1];
-                    const commandStartPos = match.index;
-                    const commandEndPos = commandStartPos + command.length;
-        
-                    if (!VALIDATION_CONFIG.allowedCommands.includes(command)) {
-                        diagnostics.push({
-                            severity: 2, // Warning
-                            range: {
-                                start: { line: lineNumber, character: commandStartPos },
-                                end: { line: lineNumber, character: commandEndPos }
-                            },
-                            message: VALIDATION_CONFIG.errorMessage.replace('{command}', command),
-                            source: 'rwmodcode'
-                        });
-                    }
-                }
-            }
-        
-            connection.sendDiagnostics({
-                uri: textDocument.uri,
-                version: textDocument.version, // Важно для отслеживания версий
-                diagnostics
-            });
-        } 
+// Функция валидации — модульная (доступна из любых обработчиков)
+function validateDocument(textDocument) {
+  const text = textDocument.getText();
+  const diagnostics = [];
 
-    } catch (error) {
-        connection.console.error(`Validation failed: ${error.message}`);
+  const lines = text.split(/\r?\n/);
+  for (let lineNumber = 0; lineNumber < lines.length; lineNumber++) {
+    const line = lines[lineNumber];
+    const match = line.match(VALIDATION_CONFIG.commandPattern);
+    if (match) {
+      const command = match[1];
+      const commandStartPos = match.index || 0;
+      const commandEndPos = commandStartPos + command.length;
+
+      if (!VALIDATION_CONFIG.allowedCommands.includes(command)) {
+        diagnostics.push({
+          severity: 2, // Warning
+          range: {
+            start: { line: lineNumber, character: commandStartPos },
+            end: { line: lineNumber, character: commandEndPos }
+          },
+          message: VALIDATION_CONFIG.errorMessage.replace('{command}', command),
+          source: 'rwmodcode'
+        });
+      }
     }
+  }
+
+  // Отправляем диагностические сообщения клиенту
+  connection.sendDiagnostics({
+    uri: textDocument.uri,
+    diagnostics
+  });
+}
+
+
+connection.onRequest('textDocument/diagnostic', async (params) => {
+  // params: { textDocument: { uri }, previousResultId? }
+  const uri = params.textDocument && params.textDocument.uri;
+  if (!uri) return { items: [] };
+
+  const doc = documents.get(uri);
+  if (!doc) return { items: [] };
+
+  // Выполнить ту же валидацию, что в validateDocument, и вернуть результат
+  const diagnostics = [];
+  const lines = doc.getText().split(/\r?\n/);
+  for (let lineNumber = 0; lineNumber < lines.length; lineNumber++) {
+    const line = lines[lineNumber];
+    const match = line.match(VALIDATION_CONFIG.commandPattern);
+    if (match) {
+      const command = match[1];
+      const commandStartPos = match.index || 0;
+      const commandEndPos = commandStartPos + command.length;
+      if (!VALIDATION_CONFIG.allowedCommands.includes(command)) {
+        diagnostics.push({
+          severity: 2,
+          range: {
+            start: { line: lineNumber, character: commandStartPos },
+            end: { line: lineNumber, character: commandEndPos }
+          },
+          message: VALIDATION_CONFIG.errorMessage.replace('{command}', command),
+          source: 'rwmodcode'
+        });
+      }
+    }
+  }
+
+  // Формат ответа для Pull Diagnostics: массив элементов с uri и diagnostics
+  return { items: [{ uri, diagnostics }] };
 });
 
 
 
-
-// 5. Обработчики документов с дебаг-логированием
-documents.onDidOpen((event) => {
-    connection.console.log(`Document opened: ${event.document.uri}`);
-    validateDocument(event.document);
-});
+//documents.onDidOpen((event) => {
+//    connection.console.log(`Document opened: ${event.document.uri}`);
+//    validateDocument(event.document);
+//});
 
 documents.onDidChangeContent((event) => {
     connection.console.log(`Document changed: ${event.document.uri}`);
-    validateDocument(event.document);
+    //validateDocument(event.document);
 });
 
 // 6. Кэшированные подсказки
@@ -347,10 +376,13 @@ connection.onInitialized(() => {
     connection.console.log('RWModCode Language Server fully initialized');
 });
 
-// 9. Обработка ошибок
-connection.onError((error) => {
-    connection.console.error('Server error:', error.message);
+process.on('uncaughtException', (err) => {
+  console.error('Uncaught Exception:', err);
 });
+process.on('unhandledRejection', (reason) => {
+  console.error('Unhandled Rejection:', reason);
+});
+
 
 // Запуск сервера
 documents.listen(connection);
