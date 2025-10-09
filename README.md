@@ -1,4 +1,4 @@
-# RWModCode VS Code (rusted warfare )
+# RWModCode VS Code (rusted warfare)
 
 
 >RWModCode - это плагин для упрошения разработки модов для Rusted Warfare
@@ -28,6 +28,14 @@
 ```json
 "rwmodcode.maxSuggestions": 50,
 "rwmodcode.enableLinting": true
+```
+
+## сборка из исхоников
+
+```
+npm install -g @vscode/vsce
+
+vsce package 
 ```
 
 ## Ссылки
