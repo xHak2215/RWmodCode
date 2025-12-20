@@ -14,7 +14,7 @@ const VALIDATION_CONFIG = {
 
 // База данных подсказок с полной документацией
 const COMPLETION_ITEMS = {
-    'name': { detail: 'Название юнита', docs: 'Уникальное имя бнита (строка)' },
+    'name': { detail: 'Название юнита', docs: 'Уникальное имя юнита (строка)' },
     'class': { detail: 'класс', docs: 'Главный класс мода' },
     'price': { detail: 'Стоимость', docs: 'Цена в ресурсах (число)' },
     'mass': { detail: '  ', docs: '  ' },
@@ -54,7 +54,7 @@ const COMPLETION_ITEMS = {
     'turretSize': { detail: '  ', docs: '  ' },
     'maxAttackRange': { detail: '  ', docs: '  ' },
     'projectile': { detail: '  ', docs: '  ' },
-    'delay': { detail: '  ', docs: '  ' },
+    'delay': { detail: 'задержка кокого ли бо действия измеряеться в МС/С(зависит от секции)', docs: '  ' },
     'warmup': { detail: '  ', docs: '  ' },
     'recoilOffset': { detail: '  ', docs: '  ' },
     'recoilOutTime': { detail: '  ', docs: '  ' },
@@ -84,7 +84,7 @@ const COMPLETION_ITEMS = {
     'isVisible': { detail: '  ', docs: ' ' },
     'requireConditional': { detail: '  ', docs: ' ' },
     'temporarilyAddTags': { detail: '  ', docs: ' ' },
-    'isLocked': { detail: '  ', docs: ' ' },
+    'isLocked': { detail: 'заблокирован ли юнит к созданию', docs: ' ' },
     'isLockedMessage': { detail: '  ', docs: ' ' },
     'alsoQueueAction': { detail: '  ', docs: ' ' },
     'autoTrigger': { detail: '  ', docs: ' ' },
@@ -208,8 +208,8 @@ const COMPLETION_ITEMS = {
     '[core]': { detail: 'основная секция', docs: 'основная секция' },
     '[graphics]': { detail: '  ', docs: ' ' },
     '[action_deploy]': { detail: '  ', docs: ' ' },
-    '[attack]': { detail: '  ', docs: ' ' },
-    '[movement]': { detail: '  ', docs: ' ' },
+    '[attack]': { detail: 'секция отвечающий за атаку юнита', docs: ' ' },
+    '[movement]': { detail: 'секция отвечающий за передвижение юнита', docs: ' ' },
     '[ai]': { detail: '  ', docs: ' ' },
     '[effect_flame]': { detail: '  ', docs: ' ' },
     '[comment_action_reload]': { detail: '  ', docs: ' ' },
@@ -218,7 +218,7 @@ const COMPLETION_ITEMS = {
     '[effect_muzzleFlame]': { detail: '  ', docs: ' ' },
     'dont_load' : { detail: '  ', docs: ' ' },
     'idleDir' : { detail: '  ', docs: ' ' },
-    'invisible': { detail: '  ', docs: 'видел ли обект' },
+    'invisible': { detail: 'виден ли обект', docs: 'виден ли обект' },
     'CustomUnitMetadata': { detail: '  ', docs: ' ' },
     'displayRadius': { detail: '  ', docs: ' ' },
     'energyMax': { detail: '  ', docs: ' ' },
@@ -387,3 +387,4 @@ process.on('unhandledRejection', (reason) => {
 // Запуск сервера
 documents.listen(connection);
 connection.listen();
+
