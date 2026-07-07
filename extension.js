@@ -1,23 +1,12 @@
-import * as vscode from 'vscode';
-import { LanguageClient, TransportKind } from 'vscode-languageclient/node';
-import { MySemanticTokensProvider, legend } from '/text_headle'; 
+const vscode = require('vscode');
+const { LanguageClient, TransportKind } = require('vscode-languageclient/node');
 
-export function activate(context) {
-    console.log("запуск проверка");
+function activate(context) {
     const serverModule = context.asAbsolutePath('server/server.js');
     const clientOptions = {
         documentSelector: [{ scheme: 'file', language: 'rwmodcode' }],
         diagnosticCollectionName: 'rwmodcode'
     };
-
-    const disposable = vscode.languages.registerDocumentSemanticTokensProvider(
-        { language: 'rwmodcode' }, 
-        new MySemanticTokensProvider(),
-        legend
-    );
-    
-
-    context.subscriptions.push(disposable);
 
     const serverOptions = {
         run: { 
@@ -45,11 +34,7 @@ export function activate(context) {
         }
     );
 
-    // Запускаем клиент и добавляем его в subscriptions
-    client.start().then(() => {
-        context.subscriptions.push(client);
-        console.info("start client");
-    }).catch(err => {
-        console.error('Failed to start language client:', err);
-    });
+    context.subscriptions.push(client.start());
 }
+
+module.exports = { activate };
