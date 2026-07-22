@@ -10,6 +10,8 @@ const documents = new TextDocuments(TextDocument);
  
 const COMPLETION_ITEMS_LIST_KEY = Object.keys(COMPLETION_ITEMS);
 
+file_list_in_the_dir = [];
+
 const VALIDATION_CONFIG = {
     allowedCommands: Object.keys(COMPLETION_ITEMS),
     commandPattern: /^\s*([a-zA-Z0-9_]+)\s*:/,
@@ -109,8 +111,19 @@ connection.onRequest('textDocument/diagnostic', async (params) => {
 
 function listDirectory(dirPath) {
     const temp = {};
+    let filePath;
     try {
-        const entries = fs.readdirSync(dirPath, { withFileTypes: false });
+        filePath = fileURLToPath(dirPath);
+    } catch (e) {
+        // Если не сработало, чистим вручную
+        filePath = dirPath
+            .replace(/^file:\/\/\/?/, '')
+            .replace(/^file:\//, '')
+            .replace(/%3A/g, ':')
+            .replace(/%20/g, ' ');
+    }
+    try {
+        const entries = fs.readdirSync(filePath, { withFileTypes: false });
         /* только когда withFileTypes == true но эта чать мне пока не нужна 
         return entries.map(entry => ({
             name: entry.name,
@@ -137,11 +150,12 @@ function listDirectory(dirPath) {
 
 documents.onDidChangeContent((event) => {
     connection.console.log(`Document changed: ${event.document.uri}`);
+    file_list_in_the_dir = listDirectory(path.dirname(event.document.uri));
     //validateDocument(event.document);
 });
 
 connection.onCompletion((textDocumentPosition) => {
-    const completionItemsCache = [...COMPLETION_ITEMS_LIST_KEY, ...Object.keys(listDirectory("./"))].map(label => ({
+    const completionItemsCache = [...COMPLETION_ITEMS_LIST_KEY, ...Object.keys(file_list_in_the_dir)].map(label => ({
       label,
       kind: CompletionItemKind.Keyword,
       data: label
@@ -153,7 +167,7 @@ connection.onCompletion((textDocumentPosition) => {
 
 // Обработка детализации подсказок
 connection.onCompletionResolve((item) => {
-    const FILE_AND_COMPLETION_ITEMS = {...COMPLETION_ITEMS, ...listDirectory("./")};
+    const FILE_AND_COMPLETION_ITEMS = {...COMPLETION_ITEMS, ...file_list_in_the_dir};
     const details = FILE_AND_COMPLETION_ITEMS[item.data];
     if (details && details.detail != '  ') {
         item.detail = details.detail;
